@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:mtrak/utils/text.dart';
+import 'package:tmdb_api/tmdb_api.dart';
+
+class TV extends StatelessWidget {
+  final List tv;
+
+  const TV({super.key, required this.tv});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const modified_text(
+            text: "Popular TV Shows",
+            size: 26.0,
+            color: Colors.white,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 200.0,
+            child: ListView.builder(
+                itemCount: tv.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: ((context, index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      width: 250.0,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 250,
+                            height: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500' +
+                                        tv[index]['backdrop_path']),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            child: modified_text(
+                              text: tv[index]['original_name'] ?? "Loading...!",
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                })),
+          ),
+        ],
+      ),
+    );
+  }
+}

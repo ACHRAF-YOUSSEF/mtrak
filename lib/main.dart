@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtrak/utils/text.dart';
+import 'package:mtrak/widgets/topRated.dart';
 import 'package:mtrak/widgets/trending.dart';
+import 'package:mtrak/widgets/tv.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 void main() {
@@ -215,7 +217,9 @@ class _MyAppState extends State<MyApp> {
       ),
       body: ListView(
         children: [
-          TrendingMovies(trending: trendingMovies)
+          TV(tv: tv),
+          TopRated(topRated: topRatedMovies),
+          TrendingMovies(trending: trendingMovies),
         ],
       ),
     );
