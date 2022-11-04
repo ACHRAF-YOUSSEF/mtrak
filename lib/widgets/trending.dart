@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
+
 class TrendingMovies extends StatelessWidget {
   final List trending;
 

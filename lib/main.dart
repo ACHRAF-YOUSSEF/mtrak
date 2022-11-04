@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:mtrak/widgets/topRated.dart';
+import 'package:mtrak/widgets/topRatedPage.dart';
 import 'package:mtrak/widgets/trending.dart';
+import 'package:mtrak/widgets/trendingPage.dart';
 import 'package:mtrak/widgets/tv.dart';
+import 'package:mtrak/widgets/tvPage.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 void main() {
@@ -58,8 +62,6 @@ class _MyAppState extends State<MyApp> {
       topRatedMovies = topRatedResult['results'];
       tv = tvResult['results'];
     });
-
-    debugPrint("$trendingMovies");
   }
 
   @override
@@ -107,7 +109,20 @@ class _MyAppState extends State<MyApp> {
                 fit: FlexFit.tight,
                 flex: 2,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          appBar: AppBar(backgroundColor: Colors.black),
+                          backgroundColor: Colors.black,
+                          body: TrendingPage(
+                            trending: trendingMovies,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                   child: Row(
                     children: const [
                       Icon(Icons.trending_up_sharp),
@@ -129,7 +144,20 @@ class _MyAppState extends State<MyApp> {
                 fit: FlexFit.tight,
                 flex: 2,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          appBar: AppBar(backgroundColor: Colors.black),
+                          backgroundColor: Colors.black,
+                          body: TopRatedPage(
+                            topRated: topRatedMovies,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                   child: Row(
                     children: const [
                       Icon(Icons.movie),
@@ -151,7 +179,20 @@ class _MyAppState extends State<MyApp> {
                 fit: FlexFit.tight,
                 flex: 2,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          appBar: AppBar(backgroundColor: Colors.black),
+                          backgroundColor: Colors.black,
+                          body: TVPage(
+                            tv: tv,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                   child: Row(
                     children: const [
                       Icon(Icons.tv),

@@ -16,6 +16,9 @@ class Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
       backgroundColor: Colors.black,
       body: Container(
         child: ListView(
