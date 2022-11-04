@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
@@ -25,37 +26,55 @@ class TopRated extends StatelessWidget {
           Container(
             height: 270.0,
             child: ListView.builder(
-                itemCount: topRated.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: ((context, index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: 140.0,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 200,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://image.tmdb.org/t/p/w500' +
-                                        topRated[index]['poster_path']),
+              itemCount: topRated.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: ((context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Description(
+                                name: topRated[index]["title"],
+                                description: topRated[index]['overview'],
+                                bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                                    topRated[index]['backdrop_path'],
+                                posterurl: 'https://image.tmdb.org/t/p/w500' +
+                                    topRated[index]['poster_path'],
+                                vote:
+                                    topRated[index]['vote_average'].toString(),
+                                lanch_on: topRated[index]['release_date'])));
+                  },
+                  child: topRated[index]['title'] != null
+                      ? Container(
+                          width: 140.0,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        'https://image.tmdb.org/t/p/w500' +
+                                            topRated[index]['poster_path']),
+                                  ),
+                                ),
                               ),
-                            ),
+                              Container(
+                                child: modified_text(
+                                  text:
+                                      topRated[index]['title'] ?? "Loading...!",
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                          Container(
-                            child: modified_text(
-                              text: topRated[index]['title'] ?? "Loading...!",
-                              size: 15,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                })),
+                        )
+                      : Container(),
+                );
+              }),
+            ),
           ),
         ],
       ),
