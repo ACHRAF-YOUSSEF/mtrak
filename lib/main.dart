@@ -240,7 +240,18 @@ class _MyAppState extends State<MyApp> {
                 fit: FlexFit.tight,
                 flex: 2,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          appBar: AppBar(backgroundColor: Colors.black),
+                          backgroundColor: Colors.black,
+                          body: Container(),
+                        ),
+                      ),
+                    );
+                  },
                   child: Row(
                     children: const [
                       Icon(Icons.settings),
