@@ -32,19 +32,21 @@ class UpcomingMovies extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Description(
-                                name: upcomingMovies[index]['title'],
-                                description: upcomingMovies[index]['overview'],
-                                bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                    upcomingMovies[index]['backdrop_path'],
-                                posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                    upcomingMovies[index]['poster_path'],
-                                vote: upcomingMovies[index]['vote_average']
-                                    .toString(),
-                                lanch_on: upcomingMovies[index]
-                                    ['first_air_date'])));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Description(
+                          name: upcomingMovies[index]['title'],
+                          description: upcomingMovies[index]['overview'],
+                          bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                              upcomingMovies[index]['backdrop_path'],
+                          posterurl: 'https://image.tmdb.org/t/p/w500' +
+                              upcomingMovies[index]['poster_path'],
+                          vote:
+                              upcomingMovies[index]['vote_average'].toString(),
+                          lanch_on: upcomingMovies[index]['release_date'],
+                        ),
+                      ),
+                    );
                   },
                   child: upcomingMovies[index]['title'] != null
                       ? Container(

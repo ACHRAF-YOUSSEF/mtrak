@@ -32,18 +32,20 @@ class TopRated extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Description(
-                                name: topRated[index]["title"],
-                                description: topRated[index]['overview'],
-                                bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                    topRated[index]['backdrop_path'],
-                                posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                    topRated[index]['poster_path'],
-                                vote:
-                                    topRated[index]['vote_average'].toString(),
-                                lanch_on: topRated[index]['release_date'])));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Description(
+                          name: topRated[index]["title"],
+                          description: topRated[index]['overview'],
+                          bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                              topRated[index]['backdrop_path'],
+                          posterurl: 'https://image.tmdb.org/t/p/w500' +
+                              topRated[index]['poster_path'],
+                          vote: topRated[index]['vote_average'].toString(),
+                          lanch_on: topRated[index]['release_date'],
+                        ),
+                      ),
+                    );
                   },
                   child: topRated[index]['title'] != null
                       ? Container(
@@ -55,8 +57,9 @@ class TopRated extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                        'https://image.tmdb.org/t/p/w500' +
-                                            topRated[index]['poster_path']),
+                                      'https://image.tmdb.org/t/p/w500' +
+                                          topRated[index]['poster_path'],
+                                    ),
                                   ),
                                 ),
                               ),

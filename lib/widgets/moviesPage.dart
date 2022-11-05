@@ -33,18 +33,20 @@ class MoviesPage extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Description(
-                                  name: movies[index]["title"],
-                                  description: movies[index]['overview'],
-                                  bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      movies[index]['backdrop_path'],
-                                  posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                      movies[index]['poster_path'],
-                                  vote:
-                                      movies[index]['vote_average'].toString(),
-                                  lanch_on: movies[index]['release_date'])));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Description(
+                            name: movies[index]["title"],
+                            description: movies[index]['overview'],
+                            bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                                movies[index]['backdrop_path'],
+                            posterurl: 'https://image.tmdb.org/t/p/w500' +
+                                movies[index]['poster_path'],
+                            vote: movies[index]['vote_average'].toString(),
+                            lanch_on: movies[index]['release_date'],
+                          ),
+                        ),
+                      );
                     },
                     child: movies[index]['title'] != null
                         ? Container(
@@ -59,8 +61,9 @@ class MoviesPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w500' +
-                                              movies[index]['backdrop_path']),
+                                        'https://image.tmdb.org/t/p/w500' +
+                                            movies[index]['backdrop_path'],
+                                      ),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

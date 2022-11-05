@@ -43,7 +43,7 @@ class NowPlayingMovies extends StatelessWidget {
                               nowPlayingMovies[index]['poster_path'],
                           vote: nowPlayingMovies[index]['vote_average']
                               .toString(),
-                          lanch_on: nowPlayingMovies[index]['first_air_date'],
+                          lanch_on: nowPlayingMovies[index]['release_date'],
                         ),
                       ),
                     );

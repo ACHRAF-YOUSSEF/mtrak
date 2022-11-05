@@ -33,18 +33,20 @@ class TrendingPage extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Description(
-                                  name: trending[index]["title"],
-                                  description: trending[index]['overview'],
-                                  bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      trending[index]['backdrop_path'],
-                                  posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                      trending[index]['poster_path'],
-                                  vote: trending[index]['vote_average']
-                                      .toString(),
-                                  lanch_on: trending[index]['release_date'])));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Description(
+                            name: trending[index]["title"],
+                            description: trending[index]['overview'],
+                            bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                                trending[index]['backdrop_path'],
+                            posterurl: 'https://image.tmdb.org/t/p/w500' +
+                                trending[index]['poster_path'],
+                            vote: trending[index]['vote_average'].toString(),
+                            lanch_on: trending[index]['release_date'],
+                          ),
+                        ),
+                      );
                     },
                     child: trending[index]["title"] != null
                         ? Container(
@@ -56,8 +58,9 @@ class TrendingPage extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w500' +
-                                              trending[index]['backdrop_path']),
+                                        'https://image.tmdb.org/t/p/w500' +
+                                            trending[index]['backdrop_path'],
+                                      ),
                                     ),
                                   ),
                                 ),

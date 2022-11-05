@@ -33,17 +33,20 @@ class TVPage extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Description(
-                                  name: tv[index]['original_name'],
-                                  description: tv[index]['overview'],
-                                  bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      tv[index]['backdrop_path'],
-                                  posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                      tv[index]['poster_path'],
-                                  vote: tv[index]['vote_average'].toString(),
-                                  lanch_on: tv[index]['first_air_date'])));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Description(
+                            name: tv[index]['original_name'],
+                            description: tv[index]['overview'],
+                            bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                                tv[index]['backdrop_path'],
+                            posterurl: 'https://image.tmdb.org/t/p/w500' +
+                                tv[index]['poster_path'],
+                            vote: tv[index]['vote_average'].toString(),
+                            lanch_on: tv[index]['first_air_date'],
+                          ),
+                        ),
+                      );
                     },
                     child: tv[index]['original_name'] != null
                         ? Container(
@@ -58,8 +61,9 @@ class TVPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w500' +
-                                              tv[index]['backdrop_path']),
+                                        'https://image.tmdb.org/t/p/w500' +
+                                            tv[index]['backdrop_path'],
+                                      ),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
