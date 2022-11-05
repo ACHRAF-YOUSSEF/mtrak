@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mtrak/utils/text.dart';
 
 class Description extends StatelessWidget {
-  final String name, description, bannerurl, posterurl, vote, lanch_on;
-
   const Description(
       {super.key,
       required this.name,
@@ -12,6 +10,8 @@ class Description extends StatelessWidget {
       required this.posterurl,
       required this.vote,
       required this.lanch_on});
+
+  final String name, description, bannerurl, posterurl, vote, lanch_on;
 
   @override
   Widget build(BuildContext context) {

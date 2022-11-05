@@ -35,13 +35,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List trendingMovies = [];
-  List topRatedMovies = [];
-  List tv = [];
-
   final String API_KEY = "9e22c17297722ec031db2f1415424f11";
   final String READ_ACCESS_TOKEN =
       "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTIyYzE3Mjk3NzIyZWMwMzFkYjJmMTQxNTQyNGYxMSIsInN1YiI6IjYzNjUwODBjZDhkMzI5MDA3YTRmOTMwMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XevStwfTlt9lAci9p2CbbgoKJSnQRvXS-Y-PGTtocYc";
+
+  List topRatedMovies = [];
+  List trendingMovies = [];
+  List tv = [];
 
   @override
   void initState() {

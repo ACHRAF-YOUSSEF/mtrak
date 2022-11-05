@@ -4,9 +4,9 @@ import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class TV extends StatelessWidget {
-  final List tv;
-
   const TV({super.key, required this.tv});
+
+  final List tv;
 
   @override
   Widget build(BuildContext context) {

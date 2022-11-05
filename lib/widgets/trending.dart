@@ -4,9 +4,9 @@ import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class TrendingMovies extends StatelessWidget {
-  final List trending;
-
   const TrendingMovies({super.key, required this.trending});
+
+  final List trending;
 
   @override
   Widget build(BuildContext context) {

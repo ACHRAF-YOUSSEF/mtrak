@@ -4,9 +4,9 @@ import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class TopRated extends StatelessWidget {
-  final List topRated;
-
   const TopRated({super.key, required this.topRated});
+
+  final List topRated;
 
   @override
   Widget build(BuildContext context) {
