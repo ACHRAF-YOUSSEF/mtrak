@@ -83,26 +83,10 @@ class _MyAppState extends State<MyApp> {
           padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0),
           child: Column(
             children: [
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: const [
-                      Icon(Icons.home),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text("Home"),
-                    ],
-                  ),
-                ),
-              ),
               const Flexible(
-                flex: 1,
+                flex: 5,
                 child: SizedBox(
-                  height: 10.0,
+                  height: 100.0,
                 ),
               ),
               Flexible(
