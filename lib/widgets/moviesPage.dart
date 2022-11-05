@@ -3,10 +3,10 @@ import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
-class TopRatedPage extends StatelessWidget {
-  const TopRatedPage({super.key, required this.topRated});
+class MoviesPage extends StatelessWidget {
+  const MoviesPage({super.key, required this.movies});
 
-  final List topRated;
+  final List movies;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class TopRatedPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const modified_text(
-            text: "Top Rated Movies",
+            text: "Upcoming Movies",
             size: 26.0,
             color: Colors.white,
           ),
@@ -27,8 +27,8 @@ class TopRatedPage extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height,
               child: ListView.builder(
-                itemCount: topRated.length,
-                scrollDirection: Axis.vertical,
+                itemCount: movies.length,
+                scrollDirection: Axis.horizontal,
                 itemBuilder: ((context, index) {
                   return InkWell(
                     onTap: () {
@@ -36,35 +36,42 @@ class TopRatedPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Description(
-                                  name: topRated[index]["title"],
-                                  description: topRated[index]['overview'],
+                                  name: movies[index]["title"],
+                                  description: movies[index]['overview'],
                                   bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      topRated[index]['backdrop_path'],
+                                      movies[index]['backdrop_path'],
                                   posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                      topRated[index]['poster_path'],
-                                  vote: topRated[index]['vote_average']
-                                      .toString(),
-                                  lanch_on: topRated[index]['release_date'])));
+                                      movies[index]['poster_path'],
+                                  vote:
+                                      movies[index]['vote_average'].toString(),
+                                  lanch_on: movies[index]['release_date'])));
                     },
-                    child: topRated[index]['title'] != null
+                    child: movies[index]['title'] != null
                         ? Container(
-                            width: 140.0,
+                            padding: const EdgeInsets.all(5),
+                            width: 250.0,
                             child: Column(
                               children: [
                                 Container(
-                                  height: 200,
+                                  width: 250,
+                                  height: 140,
                                   decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
                                       image: NetworkImage(
                                           'https://image.tmdb.org/t/p/w500' +
-                                              topRated[index]['backdrop_path']),
+                                              movies[index]['backdrop_path']),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Container(
                                   child: modified_text(
-                                    text: topRated[index]['title'] ??
-                                        "Loading...!",
+                                    text:
+                                        movies[index]['title'] ?? "Loading...!",
                                     size: 15,
                                     color: Colors.white,
                                   ),

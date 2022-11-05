@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:mtrak/widgets/topRated.dart';
-import 'package:mtrak/widgets/topRatedPage.dart';
+import 'package:mtrak/widgets/moviesPage.dart';
 import 'package:mtrak/widgets/trending.dart';
 import 'package:mtrak/widgets/trendingPage.dart';
 import 'package:mtrak/widgets/tv.dart';
 import 'package:mtrak/widgets/tvPage.dart';
+import 'package:mtrak/widgets/upcomingMoviesPage.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 void main() {
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
 
   List topRatedMovies = [];
   List trendingMovies = [];
+  List upcomingMovies = [];
   List tv = [];
 
   @override
@@ -53,11 +55,13 @@ class _MyAppState extends State<MyApp> {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
+    Map moviesResult = await tmdbWithCustomLogs.v3.movies.getUpcoming();
     Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
     Map topRatedResult = await tmdbWithCustomLogs.v3.movies.getTopRated();
     Map tvResult = await tmdbWithCustomLogs.v3.tv.getPopular();
 
     setState(() {
+      upcomingMovies = moviesResult['results'];
       trendingMovies = trendingResult['results'];
       topRatedMovies = topRatedResult['results'];
       tv = tvResult['results'];
@@ -135,8 +139,19 @@ class _MyAppState extends State<MyApp> {
                         builder: (context) => Scaffold(
                           appBar: AppBar(backgroundColor: Colors.black),
                           backgroundColor: Colors.black,
-                          body: TopRatedPage(
-                            topRated: topRatedMovies,
+                          body: ListView(
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              UpcomingMovies(
+                                upcomingMovies: upcomingMovies,
+                              ),
+                              TopRated(
+                                topRated: topRatedMovies,
+                              ),
+                              TrendingMovies(
+                                trending: trendingMovies,
+                              ),
+                            ],
                           ),
                         ),
                       ),
