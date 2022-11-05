@@ -55,10 +55,12 @@ class Description extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  modified_text(
-                    text: name,
-                    color: Colors.white,
-                    size: 24,
+                  Flexible(
+                    child: modified_text(
+                      text: name,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   Flexible(
                     child: Padding(
