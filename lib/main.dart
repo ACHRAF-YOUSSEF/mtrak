@@ -79,211 +79,213 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const modified_text(
-          text: "MTRAK❤️",
-          color: Colors.white,
-          size: 26.0,
-        ),
-      ),
-      drawer: Drawer(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.black,
-        width: 250.0,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0),
-          child: Column(
-            children: [
-              const Flexible(
-                flex: 5,
-                child: SizedBox(
-                  height: 100.0,
-                ),
-              ),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          appBar: AppBar(backgroundColor: Colors.black),
-                          backgroundColor: Colors.black,
-                          body: TrendingPage(
-                            trending: trendingMovies,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.trending_up_sharp),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text("Trending"),
-                    ],
-                  ),
-                ),
-              ),
-              const Flexible(
-                flex: 1,
-                child: SizedBox(
-                  height: 10.0,
-                ),
-              ),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          appBar: AppBar(backgroundColor: Colors.black),
-                          backgroundColor: Colors.black,
-                          body: ListView(
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              NowPlayingMovies(
-                                nowPlayingMovies: nowPlayingMovies,
-                              ),
-                              UpcomingMovies(
-                                upcomingMovies: upcomingMovies,
-                              ),
-                              TopRated(
-                                topRated: topRatedMovies,
-                              ),
-                              TrendingMovies(
-                                trending: trendingMovies,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.movie),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text("Movies"),
-                    ],
-                  ),
-                ),
-              ),
-              const Flexible(
-                flex: 1,
-                child: SizedBox(
-                  height: 10.0,
-                ),
-              ),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          appBar: AppBar(backgroundColor: Colors.black),
-                          backgroundColor: Colors.black,
-                          body: TVPage(
-                            tv: tv,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.tv),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text("TV Shows"),
-                    ],
-                  ),
-                ),
-              ),
-              const Flexible(
-                flex: 1,
-                child: SizedBox(
-                  height: 10.0,
-                ),
-              ),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: const [
-                      Icon(Icons.bookmarks_sharp),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text("Watchlist"),
-                    ],
-                  ),
-                ),
-              ),
-              const Flexible(
-                flex: 1,
-                child: SizedBox(
-                  height: 10.0,
-                ),
-              ),
-              const Flexible(
-                flex: 40,
-                child: SizedBox.expand(),
-              ),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          appBar: AppBar(backgroundColor: Colors.black),
-                          backgroundColor: Colors.black,
-                          body: Container(),
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: const [
-                      Icon(Icons.settings),
-                      SizedBox(
-                        width: 50.0,
-                      ),
-                      Text("Settings"),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: const modified_text(
+            text: "MTRAK❤️",
+            color: Colors.white,
+            size: 26.0,
           ),
         ),
-      ),
-      body: ListView(
-        children: [
-          TV(tv: tv),
-          TopRated(topRated: topRatedMovies),
-          TrendingMovies(trending: trendingMovies),
-        ],
+        drawer: Drawer(
+          backgroundColor: Colors.black,
+          width: 250.0,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0),
+            child: Column(
+              children: [
+                const Flexible(
+                  flex: 5,
+                  child: SizedBox(
+                    height: 100.0,
+                  ),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: AppBar(backgroundColor: Colors.black),
+                            backgroundColor: Colors.black,
+                            body: TrendingPage(
+                              trending: trendingMovies,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: const [
+                        Icon(Icons.trending_up_sharp),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Text("Trending"),
+                      ],
+                    ),
+                  ),
+                ),
+                const Flexible(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 10.0,
+                  ),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: AppBar(backgroundColor: Colors.black),
+                            backgroundColor: Colors.black,
+                            body: ListView(
+                              scrollDirection: Axis.vertical,
+                              children: [
+                                NowPlayingMovies(
+                                  nowPlayingMovies: nowPlayingMovies,
+                                ),
+                                UpcomingMovies(
+                                  upcomingMovies: upcomingMovies,
+                                ),
+                                TopRated(
+                                  topRated: topRatedMovies,
+                                ),
+                                TrendingMovies(
+                                  trending: trendingMovies,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: const [
+                        Icon(Icons.movie),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Text("Movies"),
+                      ],
+                    ),
+                  ),
+                ),
+                const Flexible(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 10.0,
+                  ),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: AppBar(backgroundColor: Colors.black),
+                            backgroundColor: Colors.black,
+                            body: TVPage(
+                              tv: tv,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: const [
+                        Icon(Icons.tv),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Text("TV Shows"),
+                      ],
+                    ),
+                  ),
+                ),
+                const Flexible(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 10.0,
+                  ),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: const [
+                        Icon(Icons.bookmarks_sharp),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Text("Watchlist"),
+                      ],
+                    ),
+                  ),
+                ),
+                const Flexible(
+                  flex: 1,
+                  child: SizedBox(
+                    height: 10.0,
+                  ),
+                ),
+                const Flexible(
+                  flex: 40,
+                  child: SizedBox.expand(),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: AppBar(backgroundColor: Colors.black),
+                            backgroundColor: Colors.black,
+                            body: Container(),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: const [
+                        Icon(Icons.settings),
+                        SizedBox(
+                          width: 50.0,
+                        ),
+                        Text("Settings"),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: ListView(
+          children: [
+            TV(tv: tv),
+            TopRated(topRated: topRatedMovies),
+            TrendingMovies(trending: trendingMovies),
+          ],
+        ),
       ),
     );
   }
