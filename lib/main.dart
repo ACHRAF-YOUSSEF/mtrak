@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
+import 'package:mtrak/widgets/nowPlayingPage.dart';
 import 'package:mtrak/widgets/topRated.dart';
 import 'package:mtrak/widgets/moviesPage.dart';
 import 'package:mtrak/widgets/trending.dart';
@@ -17,6 +18,10 @@ void main() {
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.green,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+        ),
         elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(Colors.black),
@@ -40,10 +45,11 @@ class _MyAppState extends State<MyApp> {
   final String READ_ACCESS_TOKEN =
       "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTIyYzE3Mjk3NzIyZWMwMzFkYjJmMTQxNTQyNGYxMSIsInN1YiI6IjYzNjUwODBjZDhkMzI5MDA3YTRmOTMwMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XevStwfTlt9lAci9p2CbbgoKJSnQRvXS-Y-PGTtocYc";
 
+  List nowPlayingMovies = [];
   List topRatedMovies = [];
   List trendingMovies = [];
-  List upcomingMovies = [];
   List tv = [];
+  List upcomingMovies = [];
 
   @override
   void initState() {
@@ -55,13 +61,16 @@ class _MyAppState extends State<MyApp> {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map moviesResult = await tmdbWithCustomLogs.v3.movies.getUpcoming();
+    Map upcomingMoviesResult = await tmdbWithCustomLogs.v3.movies.getUpcoming();
+    Map nowPlayingMoviesResult =
+        await tmdbWithCustomLogs.v3.movies.getNowPlaying();
     Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
     Map topRatedResult = await tmdbWithCustomLogs.v3.movies.getTopRated();
     Map tvResult = await tmdbWithCustomLogs.v3.tv.getPopular();
 
     setState(() {
-      upcomingMovies = moviesResult['results'];
+      nowPlayingMovies = nowPlayingMoviesResult['results'];
+      upcomingMovies = upcomingMoviesResult['results'];
       trendingMovies = trendingResult['results'];
       topRatedMovies = topRatedResult['results'];
       tv = tvResult['results'];
@@ -142,6 +151,9 @@ class _MyAppState extends State<MyApp> {
                           body: ListView(
                             scrollDirection: Axis.vertical,
                             children: [
+                              NowPlayingMovies(
+                                nowPlayingMovies: nowPlayingMovies,
+                              ),
                               UpcomingMovies(
                                 upcomingMovies: upcomingMovies,
                               ),

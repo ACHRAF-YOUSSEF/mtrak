@@ -3,10 +3,10 @@ import 'package:mtrak/description.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
-class UpcomingMovies extends StatelessWidget {
-  const UpcomingMovies({super.key, required this.upcomingMovies});
+class NowPlayingMovies extends StatelessWidget {
+  const NowPlayingMovies({super.key, required this.nowPlayingMovies});
 
-  final List upcomingMovies;
+  final List nowPlayingMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class UpcomingMovies extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const modified_text(
-            text: "Upcoming Movies",
+            text: "Now Playing Movies",
             size: 26.0,
             color: Colors.white,
           ),
@@ -26,27 +26,29 @@ class UpcomingMovies extends StatelessWidget {
           Container(
             height: 200.0,
             child: ListView.builder(
-              itemCount: upcomingMovies.length,
+              itemCount: nowPlayingMovies.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: ((context, index) {
                 return InkWell(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Description(
-                                name: upcomingMovies[index]['title'],
-                                description: upcomingMovies[index]['overview'],
-                                bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                    upcomingMovies[index]['backdrop_path'],
-                                posterurl: 'https://image.tmdb.org/t/p/w500' +
-                                    upcomingMovies[index]['poster_path'],
-                                vote: upcomingMovies[index]['vote_average']
-                                    .toString(),
-                                lanch_on: upcomingMovies[index]
-                                    ['first_air_date'])));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Description(
+                          name: nowPlayingMovies[index]['title'],
+                          description: nowPlayingMovies[index]['overview'],
+                          bannerurl: 'https://image.tmdb.org/t/p/w500' +
+                              nowPlayingMovies[index]['backdrop_path'],
+                          posterurl: 'https://image.tmdb.org/t/p/w500' +
+                              nowPlayingMovies[index]['poster_path'],
+                          vote: nowPlayingMovies[index]['vote_average']
+                              .toString(),
+                          lanch_on: nowPlayingMovies[index]['first_air_date'],
+                        ),
+                      ),
+                    );
                   },
-                  child: upcomingMovies[index]['title'] != null
+                  child: nowPlayingMovies[index]['title'] != null
                       ? Container(
                           padding: const EdgeInsets.all(5),
                           width: 250.0,
@@ -60,7 +62,7 @@ class UpcomingMovies extends StatelessWidget {
                                   image: DecorationImage(
                                     image: NetworkImage(
                                       'https://image.tmdb.org/t/p/w500' +
-                                          upcomingMovies[index]
+                                          nowPlayingMovies[index]
                                               ['backdrop_path'],
                                     ),
                                     fit: BoxFit.cover,
@@ -72,7 +74,7 @@ class UpcomingMovies extends StatelessWidget {
                               ),
                               Container(
                                 child: modified_text(
-                                  text: upcomingMovies[index]['title'] ??
+                                  text: nowPlayingMovies[index]['title'] ??
                                       "Loading...!",
                                   size: 15,
                                   color: Colors.white,
