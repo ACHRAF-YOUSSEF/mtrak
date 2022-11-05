@@ -38,12 +38,13 @@ class Description extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                      bottom: 10,
-                      child: modified_text(
-                        text: "⭐Average Rating - " + vote,
-                        size: 15,
-                        color: Colors.white,
-                      )),
+                    bottom: 10,
+                    child: modified_text(
+                      text: "⭐Average Rating - " + vote,
+                      size: 15,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -52,10 +53,25 @@ class Description extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: modified_text(
-                text: name,
-                color: Colors.white,
-                size: 24,
+              child: Row(
+                children: [
+                  modified_text(
+                    text: name,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.bookmark_add,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
