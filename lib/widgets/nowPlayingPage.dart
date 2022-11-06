@@ -35,6 +35,7 @@ class NowPlayingMovies extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Description(
+                          movieId: nowPlayingMovies[index]['id'],
                           name: nowPlayingMovies[index]['title'],
                           description: nowPlayingMovies[index]['overview'],
                           bannerurl: 'https://image.tmdb.org/t/p/w500' +

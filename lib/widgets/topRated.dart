@@ -35,6 +35,7 @@ class TopRated extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Description(
+                          movieId: topRated[index]['id'],
                           name: topRated[index]["title"],
                           description: topRated[index]['overview'],
                           bannerurl: 'https://image.tmdb.org/t/p/w500' +

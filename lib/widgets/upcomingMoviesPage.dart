@@ -35,6 +35,7 @@ class UpcomingMovies extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Description(
+                          movieId: upcomingMovies[index]['id'],
                           name: upcomingMovies[index]['title'],
                           description: upcomingMovies[index]['overview'],
                           bannerurl: 'https://image.tmdb.org/t/p/w500' +

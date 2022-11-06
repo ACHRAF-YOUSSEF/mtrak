@@ -35,6 +35,7 @@ class TrendingMovies extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => Description(
+                          movieId: trending[index]['id'],
                           name: trending[index]["title"],
                           description: trending[index]['overview'],
                           bannerurl: 'https://image.tmdb.org/t/p/w500' +

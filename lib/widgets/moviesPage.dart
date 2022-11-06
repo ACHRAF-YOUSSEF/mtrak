@@ -36,6 +36,7 @@ class MoviesPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Description(
+                            movieId: movies[index]['id'],
                             name: movies[index]["title"],
                             description: movies[index]['overview'],
                             bannerurl: 'https://image.tmdb.org/t/p/w500' +
