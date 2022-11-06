@@ -88,25 +88,19 @@ class _DescriptionState extends State<Description> {
               height: 15,
             ),
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
-                    child: modified_text(
-                      text: widget.name,
-                      color: Colors.white,
-                      size: 24,
-                    ),
+                  modified_text(
+                    text: widget.name,
+                    color: Colors.white,
+                    size: 24,
                   ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.bookmark_add,
-                        ),
-                      ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_add,
                     ),
                   ),
                 ],
