@@ -1,3 +1,4 @@
+import 'package:firedart/firedart.dart';
 import 'package:flutter/material.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
@@ -31,13 +32,61 @@ class Description extends StatefulWidget {
 class _DescriptionState extends State<Description> {
   _DescriptionState(this.movieId);
 
+  CollectionReference bookmarkCollection =
+      Firestore.instance.collection("bookmark");
+
   int movieId = 0;
   List similarMovies = [];
+  List<dynamic> bookmarkedMovies = [];
+  String? currentMovieId;
+  bool bookmarked = false;
 
   @override
   void initState() {
     getSimilar(movieId);
     super.initState();
+  }
+
+  addToBookMarks() async {
+    await bookmarkCollection.add({
+      "id": movieId,
+      "isMovie": false,
+    });
+  }
+
+  deleteFromBookMarks() async {
+    await bookmarkCollection.document(currentMovieId!).delete();
+  }
+
+  getBookMarks() async {
+    List<Document> bookmarks = await bookmarkCollection.get();
+
+    for (Document bookmark in bookmarks) {
+      if (bookmark["isMovie"] == false) {
+        Map tv = await getMovieDetail(bookmark['id']);
+        String? id = bookmark.id;
+        Map tvShow = {'data': tv, 'id': id};
+        if (bookmarkedMovies.contains(tvShow) == false) {
+          bookmarkedMovies.add(tvShow);
+        }
+      }
+    }
+
+    for (Map bookMark in bookmarkedMovies) {
+      if (bookMark['data']['id'] == movieId) {
+        currentMovieId = bookMark['id'];
+        bookmarked = true;
+      }
+    }
+  }
+
+  getMovieDetail(movieId) async {
+    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
+        logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
+
+    Map results = await tmdbWithCustomLogs.v3.movies.getDetails(movieId);
+
+    return results;
   }
 
   getSimilar(movieId) async {
@@ -104,9 +153,19 @@ class _DescriptionState extends State<Description> {
                   ),
                   IconButton(
                     tooltip: "bookmark",
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark_add,
+                    onPressed: () {
+                      setState(() {
+                        if (currentMovieId != null) {
+                          deleteFromBookMarks();
+                        } else {
+                          addToBookMarks();
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      (currentMovieId != null && bookmarked)
+                          ? Icons.bookmark_added
+                          : Icons.bookmark_add,
                     ),
                   ),
                 ],
