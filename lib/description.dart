@@ -26,11 +26,10 @@ class Description extends StatefulWidget {
 }
 
 class _DescriptionState extends State<Description> {
-  List similarMovies = [];
+  _DescriptionState(this.movieId);
 
   int movieId = 0;
-
-  _DescriptionState(this.movieId);
+  List similarMovies = [];
 
   @override
   void initState() {
@@ -98,6 +97,7 @@ class _DescriptionState extends State<Description> {
                     size: 24,
                   ),
                   IconButton(
+                    tooltip: "bookmark",
                     onPressed: () {},
                     icon: const Icon(
                       Icons.bookmark_add,
@@ -155,7 +155,7 @@ class _DescriptionState extends State<Description> {
                     height: 10,
                   ),
                   Container(
-                    height: 280.0,
+                    height: 300.0,
                     child: ListView.builder(
                       itemCount: similarMovies.length,
                       scrollDirection: Axis.horizontal,

@@ -26,12 +26,11 @@ class TVDescription extends StatefulWidget {
 }
 
 class _TVDescriptionState extends State<TVDescription> {
-  List similarTvShows = [];
-
-  int tvShowId = 0;
-  int nb = 0;
-
   _TVDescriptionState(this.tvShowId);
+
+  int nb = 0;
+  List similarTvShows = [];
+  int tvShowId = 0;
 
   @override
   void initState() {
@@ -112,6 +111,7 @@ class _TVDescriptionState extends State<TVDescription> {
                     size: 24,
                   ),
                   IconButton(
+                    tooltip: "bookmark",
                     onPressed: () {},
                     icon: const Icon(
                       Icons.bookmark_add,

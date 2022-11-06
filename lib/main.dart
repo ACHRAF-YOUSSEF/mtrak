@@ -118,41 +118,6 @@ class _MyAppState extends State<MyApp> {
                           builder: (context) => Scaffold(
                             appBar: AppBar(backgroundColor: Colors.black),
                             backgroundColor: Colors.black,
-                            body: TrendingPage(
-                              trending: trendingMovies,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: const [
-                        Icon(Icons.trending_up_sharp),
-                        SizedBox(
-                          width: 50.0,
-                        ),
-                        Text("Trending"),
-                      ],
-                    ),
-                  ),
-                ),
-                const Flexible(
-                  flex: 1,
-                  child: SizedBox(
-                    height: 10.0,
-                  ),
-                ),
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 2,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                            appBar: AppBar(backgroundColor: Colors.black),
-                            backgroundColor: Colors.black,
                             body: ListView(
                               scrollDirection: Axis.vertical,
                               children: [
