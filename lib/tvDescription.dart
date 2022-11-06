@@ -1,3 +1,4 @@
+import 'package:firedart/firedart.dart';
 import 'package:flutter/material.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
@@ -5,6 +6,9 @@ import 'package:tmdb_api/tmdb_api.dart';
 final String API_KEY = "9e22c17297722ec031db2f1415424f11";
 final String READ_ACCESS_TOKEN =
     "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTIyYzE3Mjk3NzIyZWMwMzFkYjJmMTQxNTQyNGYxMSIsInN1YiI6IjYzNjUwODBjZDhkMzI5MDA3YTRmOTMwMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XevStwfTlt9lAci9p2CbbgoKJSnQRvXS-Y-PGTtocYc";
+
+const apiKey = 'AIzaSyA52mXdJDehIBVfMkR7QE4QavRIRMnmAjY';
+const projectId = 'mtrak-ebf6b';
 
 class TVDescription extends StatefulWidget {
   TVDescription({
@@ -28,15 +32,64 @@ class TVDescription extends StatefulWidget {
 class _TVDescriptionState extends State<TVDescription> {
   _TVDescriptionState(this.tvShowId);
 
+  CollectionReference bookmarkCollection =
+      Firestore.instance.collection("bookmark");
+
   int nb = 0;
   List similarTvShows = [];
+  List<dynamic> bookmarkedTVShows = [];
   int tvShowId = 0;
+  String? currentTvShowId;
+  bool bookmarked = false;
 
   @override
   void initState() {
     getSimilar(tvShowId);
     getDetail(tvShowId);
+    getBookMarks();
     super.initState();
+  }
+
+  addToBookMarks() async {
+    await bookmarkCollection.add({
+      "id": tvShowId,
+      "isMovie": false,
+    });
+  }
+
+  deleteFromBookMarks() async {
+    await bookmarkCollection.document(currentTvShowId!).delete();
+  }
+
+  getBookMarks() async {
+    List<Document> bookmarks = await bookmarkCollection.get();
+
+    for (Document bookmark in bookmarks) {
+      if (bookmark["isMovie"] == false) {
+        Map tv = await getTvShowDetail(bookmark['id']);
+        String? id = bookmark.id;
+        Map tvShow = {'data': tv, 'id': id};
+        if (bookmarkedTVShows.contains(tvShow) == false) {
+          bookmarkedTVShows.add(tvShow);
+        }
+      }
+    }
+
+    for (Map bookMark in bookmarkedTVShows) {
+      if (bookMark['data']['id'] == tvShowId) {
+        currentTvShowId = bookMark['id'];
+        bookmarked = true;
+      }
+    }
+  }
+
+  getTvShowDetail(tvShowId) async {
+    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
+        logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
+
+    Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
+
+    return results;
   }
 
   getDetail(tvShowId) async {
@@ -105,16 +158,29 @@ class _TVDescriptionState extends State<TVDescription> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  modified_text(
-                    text: widget.name,
-                    color: Colors.white,
-                    size: 24,
+                  Flexible(
+                    flex: 4,
+                    child: modified_text(
+                      text: widget.name,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   IconButton(
                     tooltip: "bookmark",
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark_add,
+                    onPressed: () {
+                      setState(() {
+                        if (currentTvShowId != null) {
+                          deleteFromBookMarks();
+                        } else {
+                          addToBookMarks();
+                        }
+                      });
+                    },
+                    icon: Icon(
+                      (currentTvShowId != null && bookmarked)
+                          ? Icons.bookmark_added
+                          : Icons.bookmark_add,
                     ),
                   ),
                 ],

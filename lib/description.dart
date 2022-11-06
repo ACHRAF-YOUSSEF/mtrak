@@ -6,6 +6,9 @@ final String API_KEY = "9e22c17297722ec031db2f1415424f11";
 final String READ_ACCESS_TOKEN =
     "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTIyYzE3Mjk3NzIyZWMwMzFkYjJmMTQxNTQyNGYxMSIsInN1YiI6IjYzNjUwODBjZDhkMzI5MDA3YTRmOTMwMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XevStwfTlt9lAci9p2CbbgoKJSnQRvXS-Y-PGTtocYc";
 
+const apiKey = 'AIzaSyA52mXdJDehIBVfMkR7QE4QavRIRMnmAjY';
+const projectId = 'mtrak-ebf6b';
+
 class Description extends StatefulWidget {
   Description({
     super.key,
@@ -91,10 +94,13 @@ class _DescriptionState extends State<Description> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  modified_text(
-                    text: widget.name,
-                    color: Colors.white,
-                    size: 24,
+                  Flexible(
+                    flex: 5,
+                    child: modified_text(
+                      text: widget.name,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   IconButton(
                     tooltip: "bookmark",
@@ -176,7 +182,7 @@ class _DescriptionState extends State<Description> {
                                   vote: similarMovies[index]['vote_average']
                                       .toString(),
                                   lanch_on: similarMovies[index]
-                                      ['first_air_date'],
+                                      ['release_date'],
                                 ),
                               ),
                             );
