@@ -35,6 +35,7 @@ class TVPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TVDescription(
+                          tvShowId: tv[index]['id'],
                           name: tv[index]['original_name'],
                           description: tv[index]['overview'],
                           bannerurl: 'https://image.tmdb.org/t/p/w500' +
