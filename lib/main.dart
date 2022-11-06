@@ -4,6 +4,7 @@ import 'package:mtrak/utils/text.dart';
 import 'package:mtrak/widgets/nowPlayingPage.dart';
 import 'package:mtrak/widgets/topRated.dart';
 import 'package:mtrak/widgets/moviesPage.dart';
+import 'package:mtrak/widgets/topRatedTvShowsPage.dart';
 import 'package:mtrak/widgets/trending.dart';
 import 'package:mtrak/widgets/trendingPage.dart';
 import 'package:mtrak/widgets/tv.dart';
@@ -46,9 +47,10 @@ class _MyAppState extends State<MyApp> {
       "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTIyYzE3Mjk3NzIyZWMwMzFkYjJmMTQxNTQyNGYxMSIsInN1YiI6IjYzNjUwODBjZDhkMzI5MDA3YTRmOTMwMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XevStwfTlt9lAci9p2CbbgoKJSnQRvXS-Y-PGTtocYc";
 
   List nowPlayingMovies = [];
+  List popularTv = [];
   List topRatedMovies = [];
+  List topRatedTvShows = [];
   List trendingMovies = [];
-  List tv = [];
   List upcomingMovies = [];
 
   @override
@@ -66,14 +68,16 @@ class _MyAppState extends State<MyApp> {
         await tmdbWithCustomLogs.v3.movies.getNowPlaying();
     Map trendingResult = await tmdbWithCustomLogs.v3.trending.getTrending();
     Map topRatedResult = await tmdbWithCustomLogs.v3.movies.getTopRated();
-    Map tvResult = await tmdbWithCustomLogs.v3.tv.getPopular();
+    Map popularTvResult = await tmdbWithCustomLogs.v3.tv.getPopular();
+    Map topRatedTvShowsResult = await tmdbWithCustomLogs.v3.tv.getTopRated();
 
     setState(() {
       nowPlayingMovies = nowPlayingMoviesResult['results'];
       upcomingMovies = upcomingMoviesResult['results'];
       trendingMovies = trendingResult['results'];
       topRatedMovies = topRatedResult['results'];
-      tv = tvResult['results'];
+      popularTv = popularTvResult['results'];
+      topRatedTvShows = topRatedTvShowsResult['results'];
     });
   }
 
@@ -198,8 +202,16 @@ class _MyAppState extends State<MyApp> {
                           builder: (context) => Scaffold(
                             appBar: AppBar(backgroundColor: Colors.black),
                             backgroundColor: Colors.black,
-                            body: TVPage(
-                              tv: tv,
+                            body: ListView(
+                              scrollDirection: Axis.vertical,
+                              children: [
+                                TVPage(
+                                  tv: popularTv,
+                                ),
+                                TopRatedTvShowsPage(
+                                  tv: topRatedTvShows,
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -281,7 +293,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: ListView(
           children: [
-            TV(tv: tv),
+            TV(tv: popularTv),
             TopRated(topRated: topRatedMovies),
             TrendingMovies(trending: trendingMovies),
           ],

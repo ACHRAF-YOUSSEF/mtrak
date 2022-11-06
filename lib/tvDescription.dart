@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtrak/utils/text.dart';
 
-class Description extends StatelessWidget {
-  const Description(
+class TVDescription extends StatelessWidget {
+  const TVDescription(
       {super.key,
       required this.name,
       required this.description,

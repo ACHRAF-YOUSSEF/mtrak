@@ -3,8 +3,8 @@ import 'package:mtrak/tvDescription.dart';
 import 'package:mtrak/utils/text.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
-class TV extends StatelessWidget {
-  const TV({super.key, required this.tv});
+class TopRatedTvShowsPage extends StatelessWidget {
+  const TopRatedTvShowsPage({super.key, required this.tv});
 
   final List tv;
 
@@ -16,7 +16,7 @@ class TV extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const modified_text(
-            text: "Popular TV Shows",
+            text: "Top Rated TV Shows",
             size: 26.0,
             color: Colors.white,
           ),
