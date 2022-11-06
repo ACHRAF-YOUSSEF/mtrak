@@ -127,7 +127,7 @@ class _TVDescriptionState extends State<TVDescription> {
             Container(
               padding: const EdgeInsets.only(left: 10),
               child: modified_text(
-                text: "Number of seasons -- ${nb}",
+                text: "Number of seasons : ${nb}",
                 color: Colors.white,
                 size: 20,
               ),
