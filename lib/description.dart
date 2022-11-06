@@ -106,6 +106,10 @@ class _DescriptionState extends State<Description> {
                 ],
               ),
             ),
+            const Divider(
+              thickness: 2,
+              height: 10,
+            ),
             Container(
               padding: const EdgeInsets.only(left: 10),
               child: modified_text(
@@ -132,6 +136,10 @@ class _DescriptionState extends State<Description> {
                   ),
                 ),
               ],
+            ),
+            const Divider(
+              thickness: 2,
+              height: 10,
             ),
             Container(
               padding: const EdgeInsets.all(10.0),

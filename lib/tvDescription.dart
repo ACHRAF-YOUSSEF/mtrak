@@ -29,13 +29,27 @@ class _TVDescriptionState extends State<TVDescription> {
   List similarTvShows = [];
 
   int tvShowId = 0;
+  int nb = 0;
 
   _TVDescriptionState(this.tvShowId);
 
   @override
   void initState() {
     getSimilar(tvShowId);
+    getDetail(tvShowId);
     super.initState();
+  }
+
+  getDetail(tvShowId) async {
+    TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
+        logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
+
+    Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
+    List result = results['seasons'];
+
+    setState(() {
+      nb = result.length;
+    });
   }
 
   getSimilar(tvShowId) async {
@@ -106,6 +120,21 @@ class _TVDescriptionState extends State<TVDescription> {
                 ],
               ),
             ),
+            const Divider(
+              thickness: 2,
+              height: 10,
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 10),
+              child: modified_text(
+                text: "Number of seasons -- ${nb}",
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               padding: const EdgeInsets.only(left: 10),
               child: modified_text(
@@ -132,6 +161,10 @@ class _TVDescriptionState extends State<TVDescription> {
                   ),
                 ),
               ],
+            ),
+            const Divider(
+              thickness: 2,
+              height: 10,
             ),
             Container(
               padding: const EdgeInsets.all(10.0),
