@@ -44,9 +44,9 @@ class _TVDescriptionState extends State<TVDescription> {
 
   @override
   void initState() {
+    getBookMarks();
     getSimilar(tvShowId);
     getDetail(tvShowId);
-    getBookMarks();
     super.initState();
   }
 
@@ -65,21 +65,25 @@ class _TVDescriptionState extends State<TVDescription> {
     List<Document> bookmarks = await bookmarkCollection.get();
 
     for (Document bookmark in bookmarks) {
-      if (bookmark["isMovie"] == false) {
-        Map tv = await getTvShowDetail(bookmark['id']);
-        String? id = bookmark.id;
-        Map tvShow = {'data': tv, 'id': id};
-        if (bookmarkedTVShows.contains(tvShow) == false) {
-          bookmarkedTVShows.add(tvShow);
+      try {
+        if (bookmark["isMovie"] == false) {
+          Map tv = await getTvShowDetail(bookmark['id']);
+          String? id = bookmark.id;
+          Map tvShow = {'data': tv, 'id': id};
+          if (bookmarkedTVShows.contains(tvShow) == false) {
+            bookmarkedTVShows.add(tvShow);
+          }
         }
-      }
+      } catch (e) {}
     }
 
     for (Map bookMark in bookmarkedTVShows) {
-      if (bookMark['data']['id'] == tvShowId) {
-        currentTvShowId = bookMark['id'];
-        bookmarked = true;
-      }
+      try {
+        if (bookMark['data']['id'] == tvShowId) {
+          currentTvShowId = bookMark['id'];
+          bookmarked = true;
+        }
+      } catch (e) {}
     }
   }
 
@@ -87,32 +91,38 @@ class _TVDescriptionState extends State<TVDescription> {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
+    try {
+      Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
 
-    return results;
+      return results;
+    } catch (e) {}
   }
 
   getDetail(tvShowId) async {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
-    List result = results['seasons'];
+    try {
+      Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
+      List result = results['seasons'];
 
-    setState(() {
-      nb = result.length;
-    });
+      setState(() {
+        nb = result.length;
+      });
+    } catch (e) {}
   }
 
   getSimilar(tvShowId) async {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map similar = await tmdbWithCustomLogs.v3.tv.getSimilar(tvShowId);
+    try {
+      Map similar = await tmdbWithCustomLogs.v3.tv.getSimilar(tvShowId);
 
-    setState(() {
-      similarTvShows = similar['results'];
-    });
+      setState(() {
+        similarTvShows = similar['results'];
+      });
+    } catch (e) {}
   }
 
   @override
@@ -261,8 +271,14 @@ class _TVDescriptionState extends State<TVDescription> {
                                   name: similarTvShows[index]['original_name'],
                                   description: similarTvShows[index]
                                       ['overview'],
-                                  bannerurl: 'https://image.tmdb.org/t/p/w500' +
-                                      similarTvShows[index]['backdrop_path'],
+                                  bannerurl: (similarTvShows[index]
+                                              ['backdrop_path'] !=
+                                          null)
+                                      ? 'https://image.tmdb.org/t/p/w500' +
+                                          similarTvShows[index]['backdrop_path']
+                                      : 'https://image.tmdb.org/t/p/w500' +
+                                          similarTvShows[index]
+                                              ['poster_path'],
                                   posterurl: 'https://image.tmdb.org/t/p/w500' +
                                       similarTvShows[index]['poster_path'],
                                   vote: similarTvShows[index]['vote_average']
@@ -287,9 +303,15 @@ class _TVDescriptionState extends State<TVDescription> {
                                               BorderRadius.circular(20),
                                           image: DecorationImage(
                                             image: NetworkImage(
-                                              'https://image.tmdb.org/t/p/w500' +
-                                                  similarTvShows[index]
-                                                      ['backdrop_path'],
+                                              (similarTvShows[index]
+                                                          ['backdrop_path'] !=
+                                                      null)
+                                                  ? 'https://image.tmdb.org/t/p/w500' +
+                                                      similarTvShows[index]
+                                                          ['backdrop_path']
+                                                  : 'https://image.tmdb.org/t/p/w500' +
+                                                      similarTvShows[index]
+                                                          ['poster_path'],
                                             ),
                                             fit: BoxFit.cover,
                                           ),

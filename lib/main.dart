@@ -74,24 +74,26 @@ class _MyAppState extends State<MyApp> {
   }
 
   getBookMarks() async {
-    List<Document> bookmarks = await bookmarkCollection.get();
+    List<Document> bookmarks = await bookmarkCollection.orderBy('id').get();
 
     for (Document bookmark in bookmarks) {
-      if (bookmark["isMovie"] == true) {
-        Map movie = await getMovieDetail(bookmark['id']);
-        String? id = bookmark.id;
-        Map moviE = {'data': movie, 'id': id};
-        if (bookmarkedMovies.contains(moviE) == false) {
-          bookmarkedMovies.add(moviE);
+      try {
+        if (bookmark["isMovie"] == true) {
+          Map movie = await getMovieDetail(bookmark['id']);
+          String? id = bookmark.id;
+          Map moviE = {'data': movie, 'id': id};
+          if (bookmarkedMovies.contains(moviE) == false) {
+            bookmarkedMovies.add(moviE);
+          }
+        } else {
+          Map tv = await getTvShowDetail(bookmark['id']);
+          String? id = bookmark.id;
+          Map tvShow = {'data': tv, 'id': id};
+          if (bookmarkedTVShows.contains(tvShow) == false) {
+            bookmarkedTVShows.add(tvShow);
+          }
         }
-      } else {
-        Map tv = await getTvShowDetail(bookmark['id']);
-        String? id = bookmark.id;
-        Map tvShow = {'data': tv, 'id': id};
-        if (bookmarkedTVShows.contains(tvShow) == false) {
-          bookmarkedTVShows.add(tvShow);
-        }
-      }
+      } catch (e) {}
     }
   }
 
@@ -99,18 +101,22 @@ class _MyAppState extends State<MyApp> {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
+    try {
+      Map results = await tmdbWithCustomLogs.v3.tv.getDetails(tvShowId);
 
-    return results;
+      return results;
+    } catch (e) {}
   }
 
   getMovieDetail(movieId) async {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map results = await tmdbWithCustomLogs.v3.movies.getDetails(movieId);
+    try {
+      Map results = await tmdbWithCustomLogs.v3.movies.getDetails(movieId);
 
-    return results;
+      return results;
+    } catch (e) {}
   }
 
   loadMovies() async {

@@ -62,21 +62,25 @@ class _DescriptionState extends State<Description> {
     List<Document> bookmarks = await bookmarkCollection.get();
 
     for (Document bookmark in bookmarks) {
-      if (bookmark["isMovie"] == false) {
-        Map tv = await getMovieDetail(bookmark['id']);
-        String? id = bookmark.id;
-        Map tvShow = {'data': tv, 'id': id};
-        if (bookmarkedMovies.contains(tvShow) == false) {
-          bookmarkedMovies.add(tvShow);
+      try {
+        if (bookmark["isMovie"] == false) {
+          Map tv = await getMovieDetail(bookmark['id']);
+          String? id = bookmark.id;
+          Map tvShow = {'data': tv, 'id': id};
+          if (bookmarkedMovies.contains(tvShow) == false) {
+            bookmarkedMovies.add(tvShow);
+          }
         }
-      }
+      } catch (e) {}
     }
 
     for (Map bookMark in bookmarkedMovies) {
-      if (bookMark['data']['id'] == movieId) {
-        currentMovieId = bookMark['id'];
-        bookmarked = true;
-      }
+      try {
+        if (bookMark['data']['id'] == movieId) {
+          currentMovieId = bookMark['id'];
+          bookmarked = true;
+        }
+      } catch (e) {}
     }
   }
 
@@ -84,20 +88,24 @@ class _DescriptionState extends State<Description> {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map results = await tmdbWithCustomLogs.v3.movies.getDetails(movieId);
+    try {
+      Map results = await tmdbWithCustomLogs.v3.movies.getDetails(movieId);
 
-    return results;
+      return results;
+    } catch (e) {}
   }
 
   getSimilar(movieId) async {
     TMDB tmdbWithCustomLogs = TMDB(ApiKeys(API_KEY, READ_ACCESS_TOKEN),
         logConfig: const ConfigLogger(showLogs: true, showErrorLogs: true));
 
-    Map similar = await tmdbWithCustomLogs.v3.movies.getSimilar(movieId);
+    try {
+      Map similar = await tmdbWithCustomLogs.v3.movies.getSimilar(movieId);
 
-    setState(() {
-      similarMovies = similar['results'];
-    });
+      setState(() {
+        similarMovies = similar['results'];
+      });
+    } catch (e) {}
   }
 
   @override
