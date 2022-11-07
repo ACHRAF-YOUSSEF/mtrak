@@ -50,7 +50,7 @@ class _DescriptionState extends State<Description> {
   addToBookMarks() async {
     await bookmarkCollection.add({
       "id": movieId,
-      "isMovie": false,
+      "isMovie": true,
     });
   }
 
@@ -63,12 +63,12 @@ class _DescriptionState extends State<Description> {
 
     for (Document bookmark in bookmarks) {
       try {
-        if (bookmark["isMovie"] == false) {
+        if (bookmark["isMovie"] == true) {
           Map tv = await getMovieDetail(bookmark['id']);
           String? id = bookmark.id;
-          Map tvShow = {'data': tv, 'id': id};
-          if (bookmarkedMovies.contains(tvShow) == false) {
-            bookmarkedMovies.add(tvShow);
+          Map movie = {'data': tv, 'id': id};
+          if (bookmarkedMovies.contains(movie) == false) {
+            bookmarkedMovies.add(movie);
           }
         }
       } catch (e) {}
